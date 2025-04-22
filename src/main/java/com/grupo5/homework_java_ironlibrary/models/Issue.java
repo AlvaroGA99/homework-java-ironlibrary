@@ -22,13 +22,23 @@ public class Issue {
 
     @OneToOne
     @JoinColumn(name = "book_isbn")
-    private Student issueBook;
+    private Book issueBook;
 
-    public Issue(Student issueBook, String returnDate, Student issueStudent, String issueDate) {
-        this.issueBook = issueBook;
-        this.returnDate = returnDate;
-        this.issueStudent = issueStudent;
+    public Issue(){}
+
+    public Issue(String issueDate, Book issueBook, Student issueStudent, String returnDate) {
         this.issueDate = issueDate;
+        this.issueBook = issueBook;
+        this.issueStudent = issueStudent;
+        this.returnDate = returnDate;
+    }
+
+    public Book getIssueBook() {
+        return issueBook;
+    }
+
+    public void setIssueBook(Book issueBook) {
+        this.issueBook = issueBook;
     }
 
     public Student getIssueStudent() {
@@ -39,14 +49,6 @@ public class Issue {
         this.issueStudent = issueStudent;
     }
 
-    public Student getIssueBook() {
-        return issueBook;
-    }
-
-    public void setIssueBook(Student issueBook) {
-        this.issueBook = issueBook;
-    }
-
     public String getReturnDate() {
         return returnDate;
     }
@@ -55,15 +57,30 @@ public class Issue {
         this.returnDate = returnDate;
     }
 
-    public void setIssueId(Integer issueId) {
-        this.issueId = issueId;
-    }
-
     public String getIssueDate() {
         return issueDate;
     }
 
     public void setIssueDate(String issueDate) {
         this.issueDate = issueDate;
+    }
+
+    public Integer getIssueId() {
+        return issueId;
+    }
+
+    public void setIssueId(Integer issueId) {
+        this.issueId = issueId;
+    }
+
+    @Override
+    public String toString() {
+        return "Issue{" +
+                "issueId=" + issueId +
+                ", issueDate='" + issueDate + '\'' +
+                ", returnDate='" + returnDate + '\'' +
+                ", issueStudent=" + issueStudent +
+                ", issueBook=" + issueBook +
+                '}';
     }
 }
