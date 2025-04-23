@@ -1,14 +1,26 @@
 package com.grupo5.homework_java_ironlibrary.models;
 
-import com.grupo5.homework_java_ironlibrary.HomeworkJavaIronlibraryApplication;
 import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.IssueRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
+import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 public class LibraryHandler {
-    private static AuthorRepository authorRepository;
-    private static BookRepository bookRepository;
-    private static IssueRepository issueRepository;
-    private static StudentRepository studentRepository;
+
+        private final BookRepository bookRepo;
+
+        private AuthorRepository authorRepo;
+
+        private IssueRepository issueRepo;
+
+        private StudentRepository studentRepository;
+
+        public LibraryHandler(BookRepository bookRepo) {
+            this.bookRepo = bookRepo;
+        }
+
+
 }
