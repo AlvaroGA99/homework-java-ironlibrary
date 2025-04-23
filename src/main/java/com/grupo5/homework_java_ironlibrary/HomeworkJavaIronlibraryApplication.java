@@ -61,6 +61,7 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 					break;
 				case 2:
 					System.out.println("Search a book by title");
+					handler.findBookByTitle("Java Programming");
 					break;
 				case 3:
 					System.out.println("Search a book by category");
@@ -75,7 +76,8 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 					System.out.println("Issue book to student");
 					break;
 				case 7:
-					System.out.println("list books by usn");
+					System.out.println("List books by usn");
+					handler.findBookByUsn("usn");
 					break;
 				case 8:
 					System.out.println("Exit");

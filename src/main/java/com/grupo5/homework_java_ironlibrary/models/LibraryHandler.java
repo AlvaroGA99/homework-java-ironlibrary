@@ -27,4 +27,12 @@ public class LibraryHandler {
         System.out.println(studentRepository.findById(id));
     }
 
+    public void findBookByTitle(String title) {
+        System.out.println(bookRepository.findByTitle(title));
+    }
+
+    public void findBookByUsn(String category) {
+        System.out.println(bookRepository.findByUsn(category));
+    }
+
 }
