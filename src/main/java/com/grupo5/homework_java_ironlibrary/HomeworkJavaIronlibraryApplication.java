@@ -3,11 +3,76 @@ package com.grupo5.homework_java_ironlibrary;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Scanner;
+
 @SpringBootApplication
 public class HomeworkJavaIronlibraryApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
+		//SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
+
+		//switch menu with options , only with the option no code in each switch
+		//1. Add a book
+		//2. Search a book by title
+		//3. Search a book by category
+		//4. Search a book by author
+		//5. List all books along with their authors
+		//6. Issue book to student
+		//7. list books by usn
+		//8. Exit
+
+		Scanner scanner = new Scanner(System.in);
+		int option = 0;
+
+		while (option != 8) {
+			System.out.println("Select an option:");
+			System.out.println("---------------------------------");
+			System.out.println("1. Add a book");
+			System.out.println("2. Search a book by title");
+			System.out.println("3. Search a book by category");
+			System.out.println("4. Search a book by author");
+			System.out.println("5. List all books along with their authors");
+			System.out.println("6. Issue book to student");
+			System.out.println("7. list books by usn");
+			System.out.println("8. Exit");
+			System.out.println("---------------------------------");
+			option = scanner.nextInt();
+			switch (option) {
+				case 1:
+					System.out.println("Add a book");
+					break;
+				case 2:
+					System.out.println("Search a book by title");
+					break;
+				case 3:
+					System.out.println("Search a book by category");
+					break;
+				case 4:
+					System.out.println("Search a book by author");
+					break;
+				case 5:
+					System.out.println("List all books along with their authors");
+					break;
+				case 6:
+					System.out.println("Issue book to student");
+					break;
+				case 7:
+					System.out.println("list books by usn");
+					break;
+				case 8:
+					System.out.println("Exit");
+					break;
+				default:
+					System.out.println("Invalid option");
+					System.out.println();
+					break;
+			}
+		}
+		scanner.close();
+
+
+
+
 	}
 
 }
