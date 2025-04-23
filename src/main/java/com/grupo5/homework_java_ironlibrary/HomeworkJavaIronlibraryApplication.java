@@ -2,6 +2,7 @@ package com.grupo5.homework_java_ironlibrary;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.Scanner;
 
@@ -9,17 +10,7 @@ import java.util.Scanner;
 public class HomeworkJavaIronlibraryApplication {
 
 	public static void main(String[] args) {
-		//SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
-
-		//switch menu with options , only with the option no code in each switch
-		//1. Add a book
-		//2. Search a book by title
-		//3. Search a book by category
-		//4. Search a book by author
-		//5. List all books along with their authors
-		//6. Issue book to student
-		//7. list books by usn
-		//8. Exit
+		ConfigurableApplicationContext ctx = SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
 
 		Scanner scanner = new Scanner(System.in);
 		int option = 0;
@@ -67,8 +58,12 @@ public class HomeworkJavaIronlibraryApplication {
 					System.out.println();
 					break;
 			}
+
 		}
+
 		scanner.close();
+
+		SpringApplication.exit(ctx, () -> 0);
 
 
 
