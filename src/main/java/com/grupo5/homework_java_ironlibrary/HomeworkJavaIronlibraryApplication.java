@@ -4,6 +4,7 @@ import com.grupo5.homework_java_ironlibrary.models.Student;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,18 +13,19 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @SpringBootApplication
-public class HomeworkJavaIronlibraryApplication {
+public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 
-
+	@Autowired
+	private StudentRepository studentRepo;
 
 	public static void main(String[] args) {
+		SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
+	}
 
-
-		ConfigurableApplicationContext ctx = SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
-
+	@Override
+	public void run(String... args){
 		Scanner scanner = new Scanner(System.in);
 		int option = 0;
-
 		while (option != 8) {
 			System.out.println("Select an option:");
 			System.out.println("---------------------------------");
@@ -40,8 +42,7 @@ public class HomeworkJavaIronlibraryApplication {
 			switch (option) {
 				case 1:
 					System.out.println("Add a book");
-					HomeworkJavaIronlibraryApplication app = ctx.getBean(HomeworkJavaIronlibraryApplication.class);
-					app.findStudent("1RV23CS001");
+					findStudent("1RV23CS001");
 					break;
 				case 2:
 					System.out.println("Search a book by title");
@@ -63,6 +64,7 @@ public class HomeworkJavaIronlibraryApplication {
 					break;
 				case 8:
 					System.out.println("Exit");
+					System.exit(0);
 					break;
 				default:
 					System.out.println("Invalid option");
@@ -73,16 +75,8 @@ public class HomeworkJavaIronlibraryApplication {
 		}
 
 		scanner.close();
-
-		SpringApplication.exit(ctx, () -> 0);
-
-
-
-
 	}
 
-	@Autowired
-	private StudentRepository studentRepo;
 
 	public void findStudent(String usn){
 		Optional<Student> s =studentRepo.findById(usn);
