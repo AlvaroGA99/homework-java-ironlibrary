@@ -1,7 +1,10 @@
 package com.grupo5.homework_java_ironlibrary;
 
+import com.grupo5.homework_java_ironlibrary.models.LibraryHandler;
 import com.grupo5.homework_java_ironlibrary.models.Student;
+import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
+import com.grupo5.homework_java_ironlibrary.repositories.IssueRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +19,16 @@ import java.util.Scanner;
 public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 
 	@Autowired
-	private StudentRepository studentRepo;
+	private StudentRepository studentRepository;
+
+	@Autowired
+	private BookRepository bookRepository;
+
+	@Autowired
+	private IssueRepository issueRepository;
+
+	@Autowired
+	private AuthorRepository authorRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
@@ -24,6 +36,9 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args){
+
+		LibraryHandler handler = new LibraryHandler(studentRepository,bookRepository,issueRepository,authorRepository);
+
 		Scanner scanner = new Scanner(System.in);
 		int option = 0;
 		while (option != 8) {
@@ -42,7 +57,7 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 			switch (option) {
 				case 1:
 					System.out.println("Add a book");
-					findStudent("1RV23CS001");
+					handler.findStudentById("1RV23CS001");
 					break;
 				case 2:
 					System.out.println("Search a book by title");
@@ -78,10 +93,9 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 	}
 
 
-	public void findStudent(String usn){
-		Optional<Student> s =studentRepo.findById(usn);
-		if(s.isPresent()){
-		System.out.println(s);}
+	public void findStudent(StudentRepository r,String usn){
+		r.findById(usn);
+
 	}
 
 }

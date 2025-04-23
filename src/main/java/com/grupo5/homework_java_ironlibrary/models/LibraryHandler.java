@@ -10,17 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class LibraryHandler {
 
-        private final BookRepository bookRepo;
 
-        private AuthorRepository authorRepo;
+    private StudentRepository studentRepository;
+    private BookRepository bookRepository;
+    private IssueRepository issueRepository;
+    private AuthorRepository authorRepository;
 
-        private IssueRepository issueRepo;
+    public LibraryHandler(StudentRepository studentRepository, BookRepository bookRepository, IssueRepository issueRepository, AuthorRepository authorRepository) {
+        this.studentRepository = studentRepository;
+        this.bookRepository = bookRepository;
+        this.issueRepository = issueRepository;
+        this.authorRepository = authorRepository;
+    }
 
-        private StudentRepository studentRepository;
-
-        public LibraryHandler(BookRepository bookRepo) {
-            this.bookRepo = bookRepo;
-        }
-
+    public void findStudentById( String id) {
+        System.out.println(studentRepository.findById(id));
+    }
 
 }
