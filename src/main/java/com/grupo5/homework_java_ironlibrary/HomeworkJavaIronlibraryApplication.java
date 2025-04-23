@@ -1,15 +1,24 @@
 package com.grupo5.homework_java_ironlibrary;
 
+import com.grupo5.homework_java_ironlibrary.models.Student;
+import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
+import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 @SpringBootApplication
 public class HomeworkJavaIronlibraryApplication {
 
+
+
 	public static void main(String[] args) {
+
+
 		ConfigurableApplicationContext ctx = SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
 
 		Scanner scanner = new Scanner(System.in);
@@ -31,6 +40,8 @@ public class HomeworkJavaIronlibraryApplication {
 			switch (option) {
 				case 1:
 					System.out.println("Add a book");
+					HomeworkJavaIronlibraryApplication app = ctx.getBean(HomeworkJavaIronlibraryApplication.class);
+					app.findStudent("1RV23CS001");
 					break;
 				case 2:
 					System.out.println("Search a book by title");
@@ -68,6 +79,15 @@ public class HomeworkJavaIronlibraryApplication {
 
 
 
+	}
+
+	@Autowired
+	private StudentRepository studentRepo;
+
+	public void findStudent(String usn){
+		Optional<Student> s =studentRepo.findById(usn);
+		if(s.isPresent()){
+		System.out.println(s);}
 	}
 
 }
