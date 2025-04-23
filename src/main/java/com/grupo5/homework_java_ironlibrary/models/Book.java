@@ -8,9 +8,8 @@ import jakarta.persistence.*;
 @Table (name = "book")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private String isbn;
+
     private String title;
     private String category;
     private int quantity;

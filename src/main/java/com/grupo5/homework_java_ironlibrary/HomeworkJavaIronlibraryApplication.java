@@ -2,6 +2,8 @@ package com.grupo5.homework_java_ironlibrary;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
 
 import java.util.Scanner;
 
@@ -9,6 +11,7 @@ import java.util.Scanner;
 public class HomeworkJavaIronlibraryApplication {
 
 	public static void main(String[] args) {
+		ConfigurableApplicationContext context = SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
 		//SpringApplication.run(HomeworkJavaIronlibraryApplication.class, args);
 
 		//switch menu with options , only with the option no code in each switch
@@ -70,9 +73,7 @@ public class HomeworkJavaIronlibraryApplication {
 		}
 		scanner.close();
 
-
-
+		SpringApplication.exit(context, () -> 0);
 
 	}
-
 }
