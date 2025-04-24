@@ -14,7 +14,7 @@ public class Book {
     private int quantity;
 
 
-    @OneToOne(mappedBy = "authorBook", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "authorBook", cascade = CascadeType.ALL) //Guardando el book se guarda tambien el author
     private Author author;
 
     public  Book(){

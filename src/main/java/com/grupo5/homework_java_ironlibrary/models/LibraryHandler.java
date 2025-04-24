@@ -60,9 +60,9 @@ public class LibraryHandler {
         author.setAuthorBook(book);
 
         book.setAuthor(author);
-        // Guardar en orden correcto
+       //Solo hacemos save de book porque con cascade ALL tambien guarda el autor y si se borra el libro tambien se borra el author
         bookRepository.save(book);
-        //authorRepository.save(author);
+
 
 
         System.out.println("Book and author saved!");
