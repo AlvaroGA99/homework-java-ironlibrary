@@ -67,6 +67,7 @@ public class Issue {
 
     public Integer getIssueId() {
         return issueId;
+
     }
 
     public void setIssueId(Integer issueId) {
@@ -75,12 +76,11 @@ public class Issue {
 
     @Override
     public String toString() {
-        return "Issue{" +
-                "issueId=" + issueId +
-                ", issueDate='" + issueDate + '\'' +
-                ", returnDate='" + returnDate + '\'' +
-                ", issueStudent=" + issueStudent +
-                ", issueBook=" + issueBook +
-                '}';
+        return " Issue Details:\n" +
+                "   Issue ID      : " + issueId + "\n" +
+                "   Issue Date    : " + issueDate + "\n" +
+                "   Return Date   : " + returnDate + "\n" +
+                "   Student       : " + issueStudent + "\n" +
+                "   Book          : " + issueBook + "\n";
     }
 }
