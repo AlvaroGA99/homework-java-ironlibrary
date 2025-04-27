@@ -73,6 +73,7 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 					break;
 				case 5:
 					System.out.println("List all books along with their authors");
+					handler.listAllBooksWithAuthors();
 					break;
 				case 6:
 					System.out.println("Issue book to student");

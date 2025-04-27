@@ -50,6 +50,18 @@ public class LibraryHandler {
         }
     }
 
+    public void listAllBooksWithAuthors() {
+        var authors= authorRepository.findAll();
+        for (var author: authors){
+            Book book = author.getAuthorBook();
+            if (book != null) {
+                System.out.println("Book: " + book.getTitle() + ", Author: " + author.getName());
+            } else {
+                System.out.println("No book found for author: " + author.getName());
+            }
+        }
+    }
+
 
 
 }
