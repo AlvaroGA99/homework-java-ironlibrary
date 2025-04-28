@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.xml.transform.SourceLocator;
 import java.util.Optional;
 
+import java.util.Scanner;
+
 
 public class LibraryHandler {
 
@@ -36,6 +38,47 @@ public class LibraryHandler {
 
     public void findBookByUsn(String category) {
         System.out.println(bookRepository.findByUsn(category));
+    }
+
+    public void addBook(){
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter isbn: ");
+        String isbn = scanner.nextLine();
+
+        System.out.print("Enter title: ");
+        String title = scanner.nextLine();
+
+        System.out.print("Enter category: ");
+        String category = scanner.nextLine();
+
+        System.out.print("Enter Author name: ");
+        String authorName = scanner.nextLine();
+
+        System.out.print("Enter Author mail: ");
+        String authorEmail = scanner.nextLine();
+
+        System.out.print("Enter number of books: ");
+        int quantity = Integer.parseInt(scanner.nextLine());
+
+        Book book = new Book();
+        book.setIsbn(isbn);
+        book.setTitle(title);
+        book.setCategory(category);
+        book.setQuantity(quantity);
+
+        Author author = new Author();
+        author.setName(authorName);
+        author.setEmail(authorEmail);
+        author.setAuthorBook(book);
+
+        book.setAuthor(author);
+       //Solo hacemos save de book porque con cascade ALL tambien guarda el autor y si se borra el libro tambien se borra el author
+        bookRepository.save(book);
+
+
+
+        System.out.println("Book and author saved!");
     }
 
     public void findBookByCategory(String category) {

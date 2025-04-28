@@ -57,7 +57,7 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 			switch (option) {
 				case 1:
 					System.out.println("Add a book");
-					handler.findStudentById("1RV23CS001");
+					handler.addBook();
 					break;
 				case 2:
 					System.out.println("Search a book by title");
