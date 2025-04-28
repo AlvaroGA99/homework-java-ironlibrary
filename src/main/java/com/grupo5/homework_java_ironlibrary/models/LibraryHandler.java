@@ -4,8 +4,8 @@ import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.IssueRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
-
-import java.util.Scanner;
+import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class LibraryHandler {
@@ -25,6 +25,14 @@ public class LibraryHandler {
 
     public void findStudentById( String id) {
         System.out.println(studentRepository.findById(id));
+    }
+
+    public void findBookByTitle(String title) {
+        System.out.println(bookRepository.findByTitle(title));
+    }
+
+    public void findBookByUsn(String category) {
+        System.out.println(bookRepository.findByUsn(category));
     }
 
     public void addBook(){
