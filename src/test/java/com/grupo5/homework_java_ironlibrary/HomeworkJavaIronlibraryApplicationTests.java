@@ -166,7 +166,6 @@ class HomeworkJavaIronlibraryApplicationTests {
 		Student student = new Student();
 		student.setUsn("abcabc");
 		student.setName("John Student");
-		studentRepository.save(student);
 
 		Issue issue = new Issue();
 		issue.setIssueBook(book);
