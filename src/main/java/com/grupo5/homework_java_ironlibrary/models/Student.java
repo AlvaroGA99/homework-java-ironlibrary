@@ -10,7 +10,6 @@ public class Student {
 
     @Id
     private String usn;
-
     private String name;
 
     public Student(){

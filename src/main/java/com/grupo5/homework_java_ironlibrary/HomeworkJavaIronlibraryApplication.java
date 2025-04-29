@@ -11,9 +11,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Optional;
 import java.util.Scanner;
+
 
 @SpringBootApplication
 public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
@@ -36,6 +38,7 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args){
+
 
 		LibraryHandler handler = new LibraryHandler(studentRepository,bookRepository,issueRepository,authorRepository);
 
@@ -84,8 +87,10 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 					break;
 				case 8:
 					System.out.println("Exit");
-					System.exit(0);
+					//System.exit(0);
 					break;
+					//aqui iria otro exit real
+
 				default:
 					System.out.println("Invalid option");
 					System.out.println();
