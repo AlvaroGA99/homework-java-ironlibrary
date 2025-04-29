@@ -1,22 +1,21 @@
 package com.grupo5.homework_java_ironlibrary;
 
 import com.grupo5.homework_java_ironlibrary.models.Book;
-import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.ByteArrayInputStream;
-import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @Transactional
 class HomeworkJavaIronlibraryApplicationTests {
 
@@ -32,7 +31,6 @@ class HomeworkJavaIronlibraryApplicationTests {
 	@Test
 	void searchBookByTitleTest() {
 
-
 		Book book = new Book();
 		book.setIsbn("111");
 		book.setTitle("Test Book");
@@ -42,8 +40,10 @@ class HomeworkJavaIronlibraryApplicationTests {
 
 		var bookByTitle = bookRepository.findByTitle("Test Book");
 
-		assert bookByTitle != null;
-		assert bookByTitle.getTitle().equals("Test Book");
+		assertNotNull(bookByTitle);
+		for(Book b : bookByTitle){
+			assertEquals("Test Book", b.getTitle());
+		}
 
 	}
 
