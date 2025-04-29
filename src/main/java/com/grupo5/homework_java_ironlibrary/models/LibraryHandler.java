@@ -5,12 +5,11 @@ import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.IssueRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
 
-import java.util.List;
-import java.util.Scanner;
+import java.time.Instant;
+import java.util.*;
 
 import javax.xml.transform.SourceLocator;
 import java.util.List;
-import java.util.Optional;
 
 import java.util.Scanner;
 
@@ -86,6 +85,13 @@ public class LibraryHandler {
         System.out.print("Enter number of books: ");
         int quantity = Integer.parseInt(scanner.nextLine());
 
+        //Comprobamos si el libro ya existe
+        Optional<Book> bookOp = bookRepository.findById(isbn);
+        if (bookOp.isPresent()){
+            System.out.println("Isbn is already registered");
+            return;
+        }
+
         Book book = new Book();
         book.setIsbn(isbn);
         book.setTitle(title);
@@ -97,9 +103,8 @@ public class LibraryHandler {
         author.setEmail(authorEmail);
         author.setAuthorBook(book);
 
-        book.setAuthor(author);
        //Solo hacemos save de book porque con cascade ALL tambien guarda el autor y si se borra el libro tambien se borra el author
-        bookRepository.save(book);
+        authorRepository.save(author);
 
 
 
@@ -134,6 +139,34 @@ public class LibraryHandler {
                 System.out.println("No book found for author: " + author.getName());
             }
         }
+    }
+
+    public void issueBookToStudent() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter student usn: ");
+        String usn = scanner.nextLine();
+        System.out.print("Enter student name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter book isbn: ");
+        String isbn = scanner.nextLine();
+        //check if students exist by usn
+        Optional<Student> studentOpt = studentRepository.findById(usn);
+        if (studentOpt.isPresent()){
+            System.out.println("Student already issued a book");
+            return;
+        }
+        Optional<Book> b = bookRepository.findById(isbn);
+        if (b.isEmpty()){
+            System.out.println("Book not found");
+            return;
+        }
+        String date = Instant.now().toString();
+        String returnDate = Instant.now().plusSeconds(604800).toString();
+        Student student = new Student(usn,name);
+        Issue issue = new Issue(date,b.get() , student, returnDate);
+
+        issueRepository.save(issue);
+
     }
 
 
