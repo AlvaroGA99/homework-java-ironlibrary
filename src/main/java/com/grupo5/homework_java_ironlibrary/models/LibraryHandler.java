@@ -81,9 +81,16 @@ public class LibraryHandler {
 
         System.out.print("Enter Author mail: ");
         String authorEmail = scanner.nextLine();
+        int quantity = 0;
+        try{
+            quantity = Integer.parseInt(scanner.nextLine());
+            System.out.print("Enter number of books: ");
 
-        System.out.print("Enter number of books: ");
-        int quantity = Integer.parseInt(scanner.nextLine());
+        }catch (NumberFormatException e){
+            System.out.println("Invalid number format, please provide a number, aborting operation");
+            return;
+        }
+
 
         //Comprobamos si el libro ya existe
         Optional<Book> bookOp = bookRepository.findById(isbn);
