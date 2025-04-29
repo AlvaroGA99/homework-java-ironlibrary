@@ -49,10 +49,9 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 			System.out.println("3. Search a book by category");
 			System.out.println("4. Search a book by author");
 			System.out.println("5. List all books along with their authors");
-			System.out.println("6. Add a student");
-			System.out.println("7. Issue book to student");
-			System.out.println("8. List books by usn");
-			System.out.println("9. Exit");
+			System.out.println("6. Issue book to student");
+			System.out.println("7. List books by usn");
+			System.out.println("8. Exit");
 			System.out.println("---------------------------------");
 			option = scanner.nextInt();
 			switch (option) {
@@ -77,17 +76,13 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 					handler.listAllBooksWithAuthors();
 					break;
 				case 6:
-					System.out.println("Add a student");
-					handler.addStudent();
-					break;
-				case 7:
 					System.out.println("Issue book to student");
 					break;
-				case 8:
+				case 7:
 					System.out.println("List books by usn");
 					handler.findBookByUsn();
 					break;
-				case 9:
+				case 8:
 					System.out.println("Exit");
 					System.exit(0);
 					break;
@@ -102,10 +97,5 @@ public class HomeworkJavaIronlibraryApplication implements CommandLineRunner {
 		scanner.close();
 	}
 
-
-	public void findStudent(StudentRepository r,String usn){
-		r.findById(usn);
-
-	}
 
 }

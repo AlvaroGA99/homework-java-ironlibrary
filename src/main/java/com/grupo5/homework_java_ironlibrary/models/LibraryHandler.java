@@ -136,19 +136,6 @@ public class LibraryHandler {
         }
     }
 
-    public void addStudent() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter student usn: ");
-        String usn = scanner.nextLine();
-        System.out.print("Enter student name: ");
-        String name = scanner.nextLine();
-
-        Student student = new Student();
-        student.setUsn(usn);
-        student.setName(name);
-
-        studentRepository.save(student);
-    }
 
 
 }
