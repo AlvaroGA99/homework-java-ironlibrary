@@ -14,9 +14,6 @@ public class Book {
     private int quantity;
 
 
-    @OneToOne(mappedBy = "authorBook", cascade = CascadeType.ALL) //Guardando el book se guarda tambien el author
-    private Author author;
-
     public  Book(){
     }
 
@@ -57,14 +54,6 @@ public class Book {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Author getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(Author author) {
-        this.author = author;
     }
 
     @Override

@@ -16,7 +16,7 @@ public class Issue {
     @Column(name = "return_date")
     private String returnDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "student_usn",referencedColumnName = "usn")
     private Student issueStudent;
 
