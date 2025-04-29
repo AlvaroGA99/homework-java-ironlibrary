@@ -11,8 +11,8 @@ import java.util.List;
 @Repository
 public interface BookRepository extends JpaRepository<Book, String> {
     // Custom query methods can be defined here if needed
-    Book findByTitle(String title);
+    List<Book> findByTitle(String title);
 
     @Query("SELECT i.issueBook FROM Issue i JOIN i.issueStudent s WHERE s.usn = :usn")
-    List<Book> findByUsn(@Param("usn")String usn);
+    Book findByUsn(@Param("usn")String usn);
 }

@@ -4,8 +4,9 @@ import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.IssueRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
-import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.Scanner;
 
 
 public class LibraryHandler {
@@ -27,12 +28,35 @@ public class LibraryHandler {
         System.out.println(studentRepository.findById(id));
     }
 
-    public void findBookByTitle(String title) {
-        System.out.println(bookRepository.findByTitle(title));
+    public void findBookByTitle() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter book title");
+        String title = scanner.nextLine();
+
+        List<Book> b = bookRepository.findByTitle(title);
+
+        if(b!=null){
+            System.out.println(b);
+        }else{
+            System.out.println("Book not found");
+        }
     }
 
-    public void findBookByUsn(String category) {
-        System.out.println(bookRepository.findByUsn(category));
+    public void findBookByUsn() {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter student usn");
+        String usn = scanner.nextLine();
+
+        Book b = bookRepository.findByUsn(usn);
+
+        if(b!=null){
+            System.out.println(b);
+        }else{
+            System.out.println("Book not found");
+        }
     }
 
     public void addBook(){
