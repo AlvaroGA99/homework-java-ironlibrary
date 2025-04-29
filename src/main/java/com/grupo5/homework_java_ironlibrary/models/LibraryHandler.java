@@ -8,6 +8,7 @@ import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.transform.SourceLocator;
+import java.util.List;
 import java.util.Optional;
 
 import java.util.Scanner;
@@ -81,12 +82,18 @@ public class LibraryHandler {
         System.out.println("Book and author saved!");
     }
 
-    public void findBookByCategory(String category) {
+    public void findBookByCategory() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter category: ");
+        String category = scanner.nextLine();
         System.out.println(bookRepository.findByCategory(category));
     }
 
-    public void findBookByAuthorName(String authorsName){
-        Optional<Book> bookOp = bookRepository.findBookByAuthorName(authorsName);
+    public void findBookByAuthorName(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter author name: ");
+        String authorsName = scanner.nextLine();
+        Optional<Book> bookOp = authorRepository.findBookByAuthorName(authorsName);
         if (bookOp.isPresent()){
             Book book = bookOp.get();
             System.out.println(book);
@@ -94,8 +101,10 @@ public class LibraryHandler {
     }
 
     public void listAllBooksWithAuthors() {
-        var authors= authorRepository.findAll();
+        List<Author> authors= authorRepository.findAll();
+        System.out.println(authors);
         for (var author: authors){
+            System.out.println(author.getName());
             Book book = author.getAuthorBook();
             if (book != null) {
                 System.out.println("Book: " + book.getTitle() + ", Author: " + author.getName());
