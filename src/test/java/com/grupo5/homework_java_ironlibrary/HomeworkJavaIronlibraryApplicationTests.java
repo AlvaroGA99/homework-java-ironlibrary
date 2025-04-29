@@ -222,6 +222,25 @@ class HomeworkJavaIronlibraryApplicationTests {
 		assertEquals(2, bookByUsn.getQuantity());
 		assertEquals("888", bookByUsn.getIsbn());
 	}
+
+	@Test
+	void addBookTest() {
+		Book book = new Book();
+		book.setIsbn("999");
+		book.setTitle("The testing book");
+		book.setCategory("Authoring");
+		book.setQuantity(2);
+
+		bookRepository.save(book);
+
+		var bookByIsbn = bookRepository.findById("999");
+
+		assertNotNull(bookByIsbn);
+		assertEquals("The testing book", bookByIsbn.get().getTitle());
+		assertEquals("Authoring", bookByIsbn.get().getCategory());
+		assertEquals(2, bookByIsbn.get().getQuantity());
+		assertEquals("999", bookByIsbn.get().getIsbn());
+	}
 }
 
 
