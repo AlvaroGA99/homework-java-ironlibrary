@@ -2,8 +2,12 @@ package com.grupo5.homework_java_ironlibrary;
 
 import com.grupo5.homework_java_ironlibrary.models.Author;
 import com.grupo5.homework_java_ironlibrary.models.Book;
+import com.grupo5.homework_java_ironlibrary.models.Issue;
+import com.grupo5.homework_java_ironlibrary.models.Student;
 import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
+import com.grupo5.homework_java_ironlibrary.repositories.IssueRepository;
+import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,11 +16,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.ByteArrayInputStream;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -28,6 +32,12 @@ class HomeworkJavaIronlibraryApplicationTests {
 
 	@Autowired
 	private AuthorRepository authorRepository;
+
+	@Autowired
+	private IssueRepository issueRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
 
 	@BeforeAll
 	static void prepareInput() {
@@ -82,7 +92,6 @@ class HomeworkJavaIronlibraryApplicationTests {
 		book.setTitle("The testing book");
 		book.setCategory("Authoring");
 		book.setQuantity(2);
-		bookRepository.save(book);
 		Author author = new Author();
 		author.setName("John Doe");
 		author.setEmail("mail@mail.com");
@@ -107,14 +116,14 @@ class HomeworkJavaIronlibraryApplicationTests {
 			book1.setTitle("Java for Beginners");
 			book1.setCategory("Programming");
 			book1.setQuantity(5);
-			bookRepository.save(book1);
+
 
 			Book book2 = new Book();
 			book2.setIsbn("555");
 			book2.setTitle("Advanced Java");
 			book2.setCategory("Programming");
 			book2.setQuantity(3);
-			bookRepository.save(book2);
+
 
 			Author author1 = new Author();
 			author1.setName("Jane Doe");
@@ -155,6 +164,41 @@ class HomeworkJavaIronlibraryApplicationTests {
 
 		assertNotNull(bookByUsn);
 		assertEquals("The testing book", bookByUsn.getTitle());
+	}
+
+	@Test
+	void issueBookToStudentTest() {
+
+		Book book = new Book();
+		book.setIsbn("888");
+		book.setTitle("The testing book");
+		book.setCategory("Authoring");
+		book.setQuantity(2);
+		bookRepository.save(book);
+
+		Student student = new Student("1234567890","Student");
+
+		String date = Instant.now().toString();
+		String returnDate = Instant.now().plusSeconds(604800).toString();
+		Issue issue = new Issue(date, book, student, returnDate);
+		issueRepository.save(issue);
+
+		// Simulamos la entrada del usuario
+
+		var bookByUsn = bookRepository.findByUsn("1234567890");
+		var studentByUsn = studentRepository.findById("1234567890");
+
+		assertNotNull(bookByUsn);
+		assertNotNull(studentByUsn);
+		if(studentByUsn.isEmpty()){
+			fail();
+		}
+		assertEquals("1234567890", studentByUsn.get().getUsn());
+		assertEquals("Student", studentByUsn.get().getName());
+		assertEquals("The testing book", bookByUsn.getTitle());
+		assertEquals("Authoring", bookByUsn.getCategory());
+		assertEquals(2, bookByUsn.getQuantity());
+		assertEquals("888", bookByUsn.getIsbn());
 	}
 }
 
