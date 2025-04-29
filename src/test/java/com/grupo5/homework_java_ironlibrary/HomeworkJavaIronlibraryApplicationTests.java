@@ -8,6 +8,7 @@ import com.grupo5.homework_java_ironlibrary.models.Student;
 import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.IssueRepository;
+import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -32,6 +33,12 @@ class HomeworkJavaIronlibraryApplicationTests {
 
 	@Autowired
 	private AuthorRepository authorRepository;
+
+	@Autowired
+	private IssueRepository issueRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
 
 
 	@BeforeAll
@@ -159,15 +166,22 @@ class HomeworkJavaIronlibraryApplicationTests {
 		Student student = new Student();
 		student.setUsn("abcabc");
 		student.setName("John Student");
+		studentRepository.save(student);
 
 		Issue issue = new Issue();
 		issue.setIssueBook(book);
 		issue.setIssueStudent(student);
 		issue.setIssueDate("2023-10-01");
 		issue.setReturnDate("2023-10-15");
+		issueRepository.save(issue);
 
+		System.out.println("Book: " + book.getTitle()
+				+ ", Student: " + student.getName()
+		+ ", Issue Date: " + issue.getIssueDate());
 
 		Book bookByUsn = bookRepository.findByUsn("abcabc");
+
+		System.out.println(bookByUsn);
 
 		assertNotNull(bookByUsn);
 		assertEquals("The testing book", bookByUsn.getTitle());
