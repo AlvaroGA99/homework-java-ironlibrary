@@ -3,7 +3,12 @@ package com.grupo5.homework_java_ironlibrary;
 import com.grupo5.homework_java_ironlibrary.models.Author;
 import com.grupo5.homework_java_ironlibrary.models.Book;
 import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
+import com.grupo5.homework_java_ironlibrary.models.Issue;
+import com.grupo5.homework_java_ironlibrary.models.Student;
+import com.grupo5.homework_java_ironlibrary.repositories.AuthorRepository;
 import com.grupo5.homework_java_ironlibrary.repositories.BookRepository;
+import com.grupo5.homework_java_ironlibrary.repositories.IssueRepository;
+import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -28,6 +33,13 @@ class HomeworkJavaIronlibraryApplicationTests {
 
 	@Autowired
 	private AuthorRepository authorRepository;
+
+	@Autowired
+	private IssueRepository issueRepository;
+
+	@Autowired
+	private StudentRepository studentRepository;
+
 
 	@BeforeAll
 	static void prepareInput() {
@@ -91,7 +103,7 @@ class HomeworkJavaIronlibraryApplicationTests {
 
 		Optional<Book> optionalBookByauthor = authorRepository.findBookByAuthorName(author.getName());
 
-        optionalBookByauthor.ifPresent(value -> {
+		optionalBookByauthor.ifPresent(value -> {
 			assertEquals("Authoring", value.getCategory());
 			assertEquals("The testing book", value.getTitle());
 		});
@@ -103,42 +115,42 @@ class HomeworkJavaIronlibraryApplicationTests {
 	void listAllBooksWithAuthors() {
 
 		Book book1 = new Book();
-			book1.setIsbn("666");
-			book1.setTitle("Java for Beginners");
-			book1.setCategory("Programming");
-			book1.setQuantity(5);
-			bookRepository.save(book1);
+		book1.setIsbn("666");
+		book1.setTitle("Java for Beginners");
+		book1.setCategory("Programming");
+		book1.setQuantity(5);
+		bookRepository.save(book1);
 
-			Book book2 = new Book();
-			book2.setIsbn("555");
-			book2.setTitle("Advanced Java");
-			book2.setCategory("Programming");
-			book2.setQuantity(3);
-			bookRepository.save(book2);
+		Book book2 = new Book();
+		book2.setIsbn("555");
+		book2.setTitle("Advanced Java");
+		book2.setCategory("Programming");
+		book2.setQuantity(3);
+		bookRepository.save(book2);
 
-			Author author1 = new Author();
-			author1.setName("Jane Doe");
-			author1.setEmail("jane.doe@mail.com");
-			author1.setAuthorBook(book1);
-			authorRepository.save(author1);
+		Author author1 = new Author();
+		author1.setName("Jane Doe");
+		author1.setEmail("jane.doe@mail.com");
+		author1.setAuthorBook(book1);
+		authorRepository.save(author1);
 
-			Author author2 = new Author();
-			author2.setName("John Smith");
-			author2.setEmail("john.smith@mail.com");
-			author2.setAuthorBook(book2);
-			authorRepository.save(author2);
+		Author author2 = new Author();
+		author2.setName("John Smith");
+		author2.setEmail("john.smith@mail.com");
+		author2.setAuthorBook(book2);
+		authorRepository.save(author2);
 
-			List<Author> authors = authorRepository.findAll();
+		List<Author> authors = authorRepository.findAll();
 
-			for (Author author : authors) {
-				Book book = author.getAuthorBook();
-				assertNotNull(book);
-				if(book.getTitle().equals("Java for Beginners")){
-					assertEquals("Jane Doe", author.getName());
-				}else if(book.getTitle().equals("Advanced Java")){
-					assertEquals( "John Smith", author.getName());
-				}
+		for (Author author : authors) {
+			Book book = author.getAuthorBook();
+			assertNotNull(book);
+			if(book.getTitle().equals("Java for Beginners")){
+				assertEquals("Jane Doe", author.getName());
+			}else if(book.getTitle().equals("Advanced Java")){
+				assertEquals( "John Smith", author.getName());
 			}
+		}
 	}
 
 	@Test
@@ -151,11 +163,29 @@ class HomeworkJavaIronlibraryApplicationTests {
 		book.setQuantity(2);
 		bookRepository.save(book);
 
-		Book bookByUsn = bookRepository.findByUsn("777");
+		Student student = new Student();
+		student.setUsn("abcabc");
+		student.setName("John Student");
+		studentRepository.save(student);
+
+		Issue issue = new Issue();
+		issue.setIssueBook(book);
+		issue.setIssueStudent(student);
+		issue.setIssueDate("2023-10-01");
+		issue.setReturnDate("2023-10-15");
+		issueRepository.save(issue);
+
+		System.out.println("Book: " + book.getTitle()
+				+ ", Student: " + student.getName()
+		+ ", Issue Date: " + issue.getIssueDate());
+
+		Book bookByUsn = bookRepository.findByUsn("abcabc");
+
+		System.out.println(bookByUsn);
 
 		assertNotNull(bookByUsn);
 		assertEquals("The testing book", bookByUsn.getTitle());
+		assertEquals("Authoring", bookByUsn.getCategory());
+		assertEquals(2, bookByUsn.getQuantity());
 	}
 }
-
-
