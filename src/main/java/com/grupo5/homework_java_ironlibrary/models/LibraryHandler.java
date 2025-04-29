@@ -102,9 +102,7 @@ public class LibraryHandler {
 
     public void listAllBooksWithAuthors() {
         List<Author> authors= authorRepository.findAll();
-        System.out.println(authors);
         for (var author: authors){
-            System.out.println(author.getName());
             Book book = author.getAuthorBook();
             if (book != null) {
                 System.out.println("Book: " + book.getTitle() + ", Author: " + author.getName());
