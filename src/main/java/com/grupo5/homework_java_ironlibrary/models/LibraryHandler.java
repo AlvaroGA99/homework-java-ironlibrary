@@ -8,6 +8,12 @@ import com.grupo5.homework_java_ironlibrary.repositories.StudentRepository;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.xml.transform.SourceLocator;
+import java.util.List;
+import java.util.Optional;
+
+import java.util.Scanner;
+
 
 public class LibraryHandler {
 
@@ -99,5 +105,37 @@ public class LibraryHandler {
 
         System.out.println("Book and author saved!");
     }
+
+    public void findBookByCategory() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter category: ");
+        String category = scanner.nextLine();
+        System.out.println(bookRepository.findByCategory(category));
+    }
+
+    public void findBookByAuthorName(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter author name: ");
+        String authorsName = scanner.nextLine();
+        Optional<Book> bookOp = authorRepository.findBookByAuthorName(authorsName);
+        if (bookOp.isPresent()){
+            Book book = bookOp.get();
+            System.out.println(book);
+        }
+    }
+
+    public void listAllBooksWithAuthors() {
+        List<Author> authors= authorRepository.findAll();
+        for (var author: authors){
+            Book book = author.getAuthorBook();
+            if (book != null) {
+                System.out.println("Book: " + book.getTitle() + ", Author: " + author.getName());
+            } else {
+                System.out.println("No book found for author: " + author.getName());
+            }
+        }
+    }
+
+
 
 }
