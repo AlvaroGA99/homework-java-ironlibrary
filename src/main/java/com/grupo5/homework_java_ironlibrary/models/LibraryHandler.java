@@ -81,16 +81,19 @@ public class LibraryHandler {
 
         System.out.print("Enter Author mail: ");
         String authorEmail = scanner.nextLine();
-        int quantity = 0;
-        try{
-            quantity = Integer.parseInt(scanner.nextLine());
-            System.out.print("Enter number of books: ");
-
-        }catch (NumberFormatException e){
-            System.out.println("Invalid number format, please provide a number, aborting operation");
+        if (!authorEmail.matches("^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$")) {
+            System.out.println("Invalid email format, aborting operation");
             return;
         }
 
+        System.out.print("Enter number of books: ");
+        int quantity = 0;
+        try {
+            quantity = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format, please provide a number, aborting operation");
+            return;
+        }
 
         //Comprobamos si el libro ya existe
         Optional<Book> bookOp = bookRepository.findById(isbn);
@@ -112,8 +115,6 @@ public class LibraryHandler {
 
        //Solo hacemos save de book porque con cascade ALL tambien guarda el autor y si se borra el libro tambien se borra el author
         authorRepository.save(author);
-
-
 
         System.out.println("Book and author saved!");
     }
